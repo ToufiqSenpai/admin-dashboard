@@ -5,7 +5,8 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
-import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined';
+import StackedLineChartOutlinedIcon from '@mui/icons-material/StackedLineChartOutlined'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import titleCase from '../../utils/titleCase'
 
 const iconProps = {
@@ -43,7 +44,7 @@ function InnerSidebar() {
   const { asPath, push } = useRouter()
 
   return (
-    <React.Fragment>
+    <div className='relative h-full'>
       <section className='flex items-center mx-auto my-8'>
         {/* <img src='/assets/logos/zahra-zelita.png' width={70} */}
         <h2 className='mx-auto font-bold text-[26px] m-0'>TCommerce</h2>
@@ -59,11 +60,13 @@ function InnerSidebar() {
             {el.icon}{titleCase(el.label)}
           </div>
         ))}
-        <div>
-          
-        </div>
       </section>
-    </React.Fragment>
+      <div className='text-sm w-[85%] mx-auto mb-3 flex items-center font-medium px-2 py-1 rounded-md cursor-pointer absolute bottom-0 right-0 left-0'>
+        <LogoutOutlinedIcon 
+          {...iconProps}
+        />Logout
+      </div>
+    </div>
   )
 }
 

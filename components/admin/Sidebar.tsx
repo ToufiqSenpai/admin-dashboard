@@ -5,16 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { sidebar } from '../../redux/admin-slice';
 import { RootState } from '../../redux/store';
 import InnerSidebar from './InnerSidebar';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-
-const sidebarEl: { label: string, icon: JSX.Element }[] = [
-  {
-    label: 'Dashboard',
-    icon: <DashboardOutlinedIcon />
-  }
-]
 
 function Sidebar() {
   const { query } = useRouter()
@@ -22,7 +12,7 @@ function Sidebar() {
   const dispatch = useDispatch()
 
   return (
-    <React.Fragment>
+    <aside className='max-ipad:hidden'>
       <Drawer
         anchor='left'
         variant='temporary'
@@ -45,7 +35,7 @@ function Sidebar() {
         >
           <InnerSidebar />
       </Drawer>
-    </React.Fragment>
+    </aside>
   )
 }
 
