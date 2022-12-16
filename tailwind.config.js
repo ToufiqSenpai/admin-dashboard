@@ -12,6 +12,8 @@ module.exports = {
         'min-mobile': {'min': '560px'},
         'max-ipad': {'max': '840px'},
         'lg': {'max': '1080px'},
+        'min-desktop': {'min': '1280px'},
+        'max-desktop': {'max': '1280px'}
       },
       fontFamily: {
         "inter": "'Inter', sans-serif",
