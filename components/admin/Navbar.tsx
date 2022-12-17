@@ -15,7 +15,7 @@ function Navbar() {
   const { asPath } = useRouter()
 
   return (
-    <nav className='h-12 px-5 flex items-center justify-between fixed top-0 w-full shadow-nav min-mobile:w-[calc(100%_-_240px)] min-mobile:right-0'>
+    <nav className='h-12 px-5 z-50 bg-[rgb(248,249,250)] flex items-center justify-between fixed top-0 w-full min-mobile:w-[calc(100%_-_240px)] min-mobile:right-0'>
       <section className='flex items-center'>
         <div className='flex items-center' onClick={() => dispatch(sidebar(true))}>
           {isMobile && <MenuRoundedIcon fontSize='large' />}

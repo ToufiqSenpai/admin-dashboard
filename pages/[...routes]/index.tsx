@@ -1,5 +1,6 @@
 import React from 'react'
 import HeroCard from '../../components/admin/dashboard/HeroCard'
+import RevenueStatistic from '../../components/admin/dashboard/RevenueStatistic'
 import Navbar from '../../components/admin/Navbar'
 import Sidebar from '../../components/admin/Sidebar'
 
@@ -11,6 +12,7 @@ function index() {
       <Navbar />
       <main className='w-[calc(100%-240px)] max-ipad:w-full absolute top-14 right-0 bottom-0'>
         <HeroCard />
+        <RevenueStatistic />
       </main>
     </div>
   )

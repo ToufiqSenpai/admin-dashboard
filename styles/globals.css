@@ -10,14 +10,5 @@ body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   cursor: default;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: rgb(15 23 42);
-  }
+  background-color: rgb(248, 249, 250); 
 }

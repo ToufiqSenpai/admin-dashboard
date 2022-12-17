@@ -21,7 +21,8 @@ module.exports = {
       },
       boxShadow: {
         "form": "rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
-        "nav": "rgba(27,31,35,0.15) 0px 0px 0px 1px"
+        "nav": "rgba(27,31,35,0.15) 0px 0px 0px 1px",
+        "1": "0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px -1px rgba(0,0,0,.1)"
       }
     },
   },
