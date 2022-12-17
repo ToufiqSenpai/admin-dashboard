@@ -1,15 +1,55 @@
-import { useState } from 'react'
-import { TextField, InputAdornment } from '@mui/material'
+import React, { useCallback, useState } from 'react'
+import { TextField, InputAdornment, Snackbar, useMediaQuery } from '@mui/material'
 import Link from 'next/link'
 import Image from 'next/image'
 import PasswordInput from '../components/login/PasswordInput'
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined'
+import { useRouter } from 'next/router'
 
 function Login() {
-  const [password, setPassword] = useState<string>('')
+  const [snackbar, setSnackbar] = useState<boolean>(false)
+  const [data, setData] = useState({
+    email: '',
+    password: ''
+  })
 
+  const { push } = useRouter()
+
+  const isMobile = useMediaQuery('(max-width:560px)')
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
+    setData({ ...data, [e.target.id]: e.target.value })
+  }, [data])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault()
+
+    fetch(process.env.NEXT_PUBLIC_API_URL + '/api/login', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    }).then(response => {
+      if(response.status == 202) push('/dashboard')
+      else {
+        setSnackbar(true)
+        setTimeout((): void => setSnackbar(false), 3000)
+      }
+    })
+  }
+  
   return (
-    <form className='max-w-md max-mobile:max-w-[95%] m-auto h-max absolute top-0 bottom-0 left-0 right-0 bg-white shadow-1 rounded-lg'>
+    <form className='max-w-md max-mobile:max-w-[95%] m-auto h-max absolute top-0 bottom-0 left-0 right-0 bg-white shadow-1 rounded-lg' onSubmit={handleSubmit}>
+      <Snackbar
+        open={snackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        message='Wrong email or password'
+        sx={{
+          "& .MuiSnackbarContent-root": { width: isMobile ? '95%' : '448px' }
+        }}
+      />
       <header className='text-center px-4 mt-3'>
         <h1 className='text-2xl font-semibold'>Welcome Back</h1>
         <p className='text-sm mt-2'>Please enter your credential</p>
@@ -20,6 +60,9 @@ function Login() {
           type='email'
           size='small'
           margin='dense'
+          id='email'
+          value={data.email}
+          onChange={handleChange}
           InputProps={{
             endAdornment: <InputAdornment position='end'><AlternateEmailOutlinedIcon /></InputAdornment>
           }}
@@ -27,8 +70,9 @@ function Login() {
         />
         <label className='font-medium'>Password</label>
         <PasswordInput
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          id='password'
+          value={data.password}
+          onChange={handleChange}
         />
         <div className='flex justify-end my-1'>
           <Link href='/forget-password' className='text-sm text-blue-400 cursor-pointer no-underline hover:underline'>Forget Password?</Link>
