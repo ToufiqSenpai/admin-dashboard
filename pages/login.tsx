@@ -24,7 +24,7 @@ function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    fetch(process.env.NEXT_PUBLIC_API_URL + '/api/login', {
+    fetch(process.env.NEXT_PUBLIC_API_URL + '/auth/login', {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(data),
@@ -32,7 +32,7 @@ function Login() {
         "Content-Type": 'application/json'
       }
     }).then(response => {
-      if(response.status == 202) push('/dashboard')
+      if(response.status == 202) push('/admin/dashboard')
       else {
         setSnackbar(true)
         setTimeout((): void => setSnackbar(false), 3000)
@@ -82,7 +82,7 @@ function Login() {
         <button type='submit' className='mt-2 bg-black hover:bg-slate-800 w-full py-[6px] text-lg rounded-md text-white font-medium'>Login</button>
         <div className='border border-solid border-slate-400 mt-2 rounded-md px-4 py-[6px] flex justify-center items-center cursor-pointer hover:border-slate-700'>
           <div className='relative'>
-            <Image alt='google-logo' src='/assets/icon/google-logo.png' width={25} height={25} />
+            <Image alt='google-logo' src='/assets/icons/google-logo.png' width={25} height={25} />
           </div>
           <div className='text-black text-base ml-2 font-medium'>Sign In with Google</div>
         </div>

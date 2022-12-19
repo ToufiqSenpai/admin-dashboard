@@ -46,7 +46,6 @@ function InnerSidebar() {
   return (
     <div className='relative h-full'>
       <section className='flex items-center mx-auto my-8'>
-        {/* <img src='/assets/logos/zahra-zelita.png' width={70} */}
         <h2 className='mx-auto font-bold text-[26px] m-0'>TCommerce</h2>
       </section>
       <Divider />
@@ -54,8 +53,8 @@ function InnerSidebar() {
         {sidebarEl.map((el, index) => (
           <div 
             key={index} 
-            className={`${asPath.startsWith(`/${el.label}`) ? 'bg-black text-white' : ''} text-sm w-[85%] mx-auto mb-3 flex items-center font-medium px-2 py-1 rounded-md cursor-pointer`}
-            onClick={() => push(`/${el.label}`)} 
+            className={`${asPath.startsWith(`/admin/${el.label}`) ? 'bg-black text-white' : ''} text-sm w-[85%] mx-auto mb-3 flex items-center font-medium px-2 py-1 rounded-md cursor-pointer`}
+            onClick={() => push(`/admin/${el.label}`)} 
           >
             {el.icon}{titleCase(el.label)}
           </div>
