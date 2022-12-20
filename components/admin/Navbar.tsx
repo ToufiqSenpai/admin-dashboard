@@ -20,7 +20,7 @@ function Navbar() {
         <div className='flex items-center' onClick={() => dispatch(sidebar(true))}>
           {isMobile && <MenuRoundedIcon fontSize='large' />}
         </div>
-        <h2 className='font-bold text-lg ml-3'>{titleCase(asPath.replace('/', ''))}</h2>
+        <h2 className='font-bold text-lg ml-3'>{titleCase((asPath.split('/').pop()?.replace('-', ' ') as string))}</h2>
       </section>
       <section className='flex items-center cursor-pointer'>
         <div className='mr-3 flex items-center gap-2'>

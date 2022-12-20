@@ -10,15 +10,15 @@ interface HandleChange {
   value: string
 }
 
-// interface ProductData {
-//   name: string
-//   description: string
-//   category: string
-//   price: string
-//   weight: string
-//   stock: string
-//   images: any[]
-// }
+interface ProductData {
+  name: string
+  description: string
+  category: string
+  price: string
+  weight: string
+  stock: string
+  images: any[]
+}
 
 const initialState = {
   data: {
@@ -44,8 +44,9 @@ export const createEditProduct = createSlice({
       for(const file of action.payload) {
         const ext = file.name.split('.').pop()
         
-        if(!(['.jpg', '.jpeg', '.png'].includes(ext ?? ''))) continue
-        state.data.images.push(file.name)
+        if(!(['jpg', 'jpeg', 'png'].includes(ext ?? ''))) continue
+        // @ts-ignore
+        state.data.images.push(file)
       }
     },
     updateImage: (state, action: PayloadAction<UpdateImage>) => {
