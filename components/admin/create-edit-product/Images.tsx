@@ -56,8 +56,8 @@ function Images() {
               </span>
               <label className='relative border border-dashed border-slate-800 rounded-md w-[75px] h-[75px] flex justify-between items-center'>
                 <Image
-                  src={(image as File | string) instanceof File ? URL.createObjectURL(image) : image}
-                  alt={`product-image-${image + 1}`}
+                  src={(image as File | string) instanceof File ? URL.createObjectURL(image) : (image as string)}
+                  alt={`product-image-${index + 1}`}
                   className='object-contain'
                   fill
                 />
@@ -80,4 +80,4 @@ function Images() {
   )
 }
 
-export default Images
+export default React.memo(Images)
