@@ -10,14 +10,9 @@ interface HandleChange {
   value: string
 }
 
-interface ProductData {
-  name: string
-  description: string
-  category: string
-  price: string
-  weight: string
-  stock: string
-  images: any[]
+interface HandlePrice {
+  prop: 'basePrice' | 'discountPrice'
+  value: string
 }
 
 const initialState = {
@@ -29,11 +24,9 @@ const initialState = {
     stock: '',
     images: [],
     inStock: true,
-    price: {
-      basePrice: '',
-      discountPrice: '',
-      discount: false
-    }
+    basePrice: '',
+    discountPrice: '',
+    isDiscount: false
   }
 }
 
@@ -41,16 +34,15 @@ export const createEditProduct = createSlice({
   name: 'create-edit-product',
   initialState,
   reducers: {
-    handleChange: (state, action: PayloadAction<HandleChange>) => {
+    handleStateChange: (state, action: PayloadAction<HandleChange>) => {
       const payload = action.payload
       state.data[payload.prop] = payload.value
     },
     addImages: (state, action: PayloadAction<FileList>) => {
       for(const file of action.payload) {
         const ext = file.name.split('.').pop()
-        
         if(!(['jpg', 'jpeg', 'png'].includes(ext ?? ''))) continue
-        // @ts-ignore
+
         state.data.images.push(file)
       }
     },
@@ -63,16 +55,20 @@ export const createEditProduct = createSlice({
     },
     handleInStock: (state, action: PayloadAction<boolean>) => {
       state.data.inStock = action.payload
+    },
+    handleIsDiscount: (state, action: PayloadAction<boolean>) => {
+      state.data.isDiscount = action.payload
     }
   }
 })
 
 export const { 
-  handleChange,
+  handleStateChange,
   addImages,
   updateImage,
   deleteImage,
-  handleInStock
+  handleInStock,
+  handleIsDiscount
 } = createEditProduct.actions
 
 export default createEditProduct.reducer

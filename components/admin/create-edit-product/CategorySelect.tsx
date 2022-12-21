@@ -1,9 +1,7 @@
-import React from 'react'
-import { Select, MenuItem, ListItemIcon, ListItemText } from '@mui/material'
-import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
+import { Select, MenuItem } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { handleChange } from '../../../redux/create-edit-product';
+import { handleStateChange } from '../../../redux/create-edit-product';
 
 function CategorySelect() {
   const category = useSelector((state: RootState) => state.createEditProduct.data.category)
@@ -13,7 +11,7 @@ function CategorySelect() {
     <Select
       size='small'
       value={category}
-      onChange={e => dispatch(handleChange({ prop: 'category', value: e.target.value }))}
+      onChange={e => dispatch(handleStateChange({ prop: 'category', value: e.target.value }))}
       fullWidth
     >
       <MenuItem value='Clothes'>Clothes</MenuItem>
