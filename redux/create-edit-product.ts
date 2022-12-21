@@ -25,10 +25,15 @@ const initialState = {
     name: '',
     description: '',
     category: '',
-    price: '',
     weight: '',
     stock: '',
     images: [],
+    inStock: true,
+    price: {
+      basePrice: '',
+      discountPrice: '',
+      discount: false
+    }
   }
 }
 
@@ -55,6 +60,9 @@ export const createEditProduct = createSlice({
     },
     deleteImage: (state, action: PayloadAction<number>) => {
       state.data.images = state.data.images.filter((_, index) => index != action.payload)
+    },
+    handleInStock: (state, action: PayloadAction<boolean>) => {
+      state.data.inStock = action.payload
     }
   }
 })
@@ -63,7 +71,8 @@ export const {
   handleChange,
   addImages,
   updateImage,
-  deleteImage
+  deleteImage,
+  handleInStock
 } = createEditProduct.actions
 
 export default createEditProduct.reducer
