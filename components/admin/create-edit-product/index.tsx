@@ -2,7 +2,7 @@ import { FormControlLabel, FormGroup, Switch, TextField, useMediaQuery } from '@
 import Router from 'next/router'
 import { useEffect, useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { handleStateChange, handleInStock, handleIsDiscount } from '../../../redux/create-edit-product'
+import { handleStateChange, handleInStock, handleIsDiscount, setErrors, setError } from '../../../redux/create-edit-product'
 import { RootState } from '../../../redux/store'
 import CategorySelect from './CategorySelect'
 import Images from './Images'
@@ -10,11 +10,13 @@ import Images from './Images'
 function CreateEditProduct() {
   const [unsaved, setUnsaved] = useState<boolean>(false)
   const data = useSelector((state: RootState) => state.createEditProduct.data)
+  const errors = useSelector((state: RootState) => state.createEditProduct.errors)
   const dispatch = useDispatch()
 
   const isMobile = useMediaQuery(('(max-width:560px)'))
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setError({ prop: e.target.id, value: '' }))
     dispatch(handleStateChange({ prop: e.target.id, value: e.target.value }))
   }, [dispatch])
 
@@ -65,7 +67,13 @@ function CreateEditProduct() {
       method: "POST",
       body: formData
     }).then(response => response.json())
-    .then(response => console.log(response))
+    .then(response => {
+      if(response.status == 201) {
+        Router.push('/admin/products')
+      } else {
+        dispatch(setErrors(response.errors))
+      }
+    })
   }
 
   return (
@@ -76,12 +84,16 @@ function CreateEditProduct() {
           id='name'
           value={data.name}
           onChange={handleChange}
+          error={errors.name && true}
+          helperText={errors.name && errors.name}
           fullWidth
         />
         <h3 className='text-base font-semibold mt-1'>Description</h3>
         <TextField 
           id='description'
           value={data.description}
+          error={errors.description && true}
+          helperText={errors.description && errors.description}
           onChange={handleChange}
           rows={5}
           multiline
@@ -92,10 +104,11 @@ function CreateEditProduct() {
       <section className='bg-white shadow-1 h-max p-4'>
         <FormGroup className='w-max'>
           <FormControlLabel 
-          control={
-            <Switch onChange={e => dispatch(handleInStock(e.target.checked))} defaultChecked={data.inStock} />
-          } 
-          label="In stock" />
+            control={
+              <Switch onChange={e => dispatch(handleInStock(e.target.checked))} defaultChecked={data.inStock} />
+            } 
+            label="In stock" 
+          />
         </FormGroup>
         <h3 className='text-base font-semibold mt-1'>Category</h3>
         <CategorySelect />
@@ -104,6 +117,8 @@ function CreateEditProduct() {
           id='weight'
           value={data.weight}
           onChange={handleChange}
+          error={errors.weight && true}
+          helperText={errors.weight && errors.weight}
           type='number'
           size='small'
           fullWidth
@@ -113,6 +128,8 @@ function CreateEditProduct() {
           id='stock'
           value={data.stock}
           onChange={handleChange}
+          error={errors.stock && true}
+          helperText={errors.stock && errors.stock}
           type='number'
           size='small'
           fullWidth
@@ -127,6 +144,8 @@ function CreateEditProduct() {
           value={data.basePrice}
           id='basePrice'
           onChange={handleChange}
+          error={errors.basePrice && true}
+          helperText={errors.basePrice && errors.basePrice}
           type='number'
           size='small'
           fullWidth
@@ -136,6 +155,8 @@ function CreateEditProduct() {
           value={data.discountPrice}
           id='discountPrice'
           onChange={handleChange}
+          error={errors.discountPrice && true}
+          helperText={errors.discountPrice && errors.discountPrice}
           type='number'
           size='small'
           fullWidth

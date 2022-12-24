@@ -10,12 +10,34 @@ interface HandleChange {
   value: string
 }
 
-interface HandlePrice {
-  prop: 'basePrice' | 'discountPrice'
-  value: string
+interface InitialState {
+  data: {
+    name: string
+    description: string
+    category: string
+    weight: string
+    stock: string
+    images: any[]
+    inStock: boolean
+    basePrice: string
+    discountPrice: string
+    isDiscount: boolean
+  },
+  errors: {
+    name?: string
+    description?: string
+    category?: string
+    weight?: string
+    stock?: string
+    images?: string[]
+    inStock?: string
+    basePrice?: string
+    discountPrice?: string
+    isDiscount?: string
+  }
 }
 
-const initialState = {
+const initialState: InitialState = {
   data: {
     name: '',
     description: '',
@@ -27,6 +49,9 @@ const initialState = {
     basePrice: '',
     discountPrice: '',
     isDiscount: false
+  },
+  errors: {
+
   }
 }
 
@@ -58,6 +83,12 @@ export const createEditProduct = createSlice({
     },
     handleIsDiscount: (state, action: PayloadAction<boolean>) => {
       state.data.isDiscount = action.payload
+    },
+    setErrors: (state, action) => {
+      state.errors = action.payload
+    },
+    setError: (state, action: PayloadAction<HandleChange>) => {
+      state.errors[action.payload.prop] = action.payload.value
     }
   }
 })
@@ -68,7 +99,9 @@ export const {
   updateImage,
   deleteImage,
   handleInStock,
-  handleIsDiscount
+  handleIsDiscount,
+  setErrors,
+  setError
 } = createEditProduct.actions
 
 export default createEditProduct.reducer

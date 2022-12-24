@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import CreateEditProduct from '../../components/admin/create-edit-product'
+import Dashboard from '../../components/admin/dashboard'
 import HeroCard from '../../components/admin/dashboard/HeroCard'
 import RevenueStatistic from '../../components/admin/dashboard/RevenueStatistic'
 import Navbar from '../../components/admin/Navbar'
+import ProductsDashboard from '../../components/admin/products'
 import Sidebar from '../../components/admin/Sidebar'
 
 
@@ -12,18 +14,11 @@ function DashboardRoute() {
 
   switch(asPath) {
     case '/admin/dashboard':
-      return (
-        <React.Fragment>
-          <HeroCard />
-          <RevenueStatistic />
-        </React.Fragment>
-      )
+      return <Dashboard />
+    case '/admin/products': 
+      return <ProductsDashboard />
     case '/admin/products/add-product':
-      return (
-        <React.Fragment>
-          <CreateEditProduct />
-        </React.Fragment>
-      )
+      return <CreateEditProduct />
     default: 
       return <h1>Not found</h1>
   }
